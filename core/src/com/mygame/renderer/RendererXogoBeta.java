@@ -26,7 +26,6 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
-import static com.badlogic.gdx.Application.ApplicationType.Android;
 
 
 public class RendererXogoBeta implements InputProcessor {
