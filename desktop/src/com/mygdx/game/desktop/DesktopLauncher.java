@@ -5,8 +5,7 @@ import com.mygdx.game.MyGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		MyGame mygame=new MyGame();
-		mygame.setPlataforma(MyGame.PLATAFORMA_DESKTOP);
+		MyGame mygame=new MyGame(1);
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "La serpiente";
 		config.resizable=true;

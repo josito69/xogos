@@ -7,12 +7,18 @@ import com.mygame.pantallas.Pause;
 import com.mygame.pantallas.Presentacion;
 
 public class MyGame extends Game {
-    public final static int PLATAFORMA_ANDROID=0;
-    public final static int PLATAFORMA_DESKTOP=1;
-    public final static int PLATAFORMA_HTML=2;
-    private int plataforma;
-    public int getPlataforma() {return plataforma; }
-    public void setPlataforma(int plataforma) { this.plataforma = plataforma; }
+    public static int PLATAFORMA_ANDROID=0;
+    public static int PLATAFORMA_DESKTOP=1;
+    public static int PLATAFORMA_HTML=2;
+    public Plataforma platform;
+    public int tipo;
+    public MyGame(Plataforma platform,int tipo)
+    {
+        this.platform=platform;
+        this.tipo=tipo; }
+    public MyGame(int tipo){
+        this.tipo=tipo;
+    }
 
     private Juego pantallaxogo;
     private Presentacion pantallaPresentacion;
@@ -43,3 +49,4 @@ public class MyGame extends Game {
         super.dispose();
     }
 }
+

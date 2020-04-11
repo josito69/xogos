@@ -27,8 +27,8 @@ import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
 
-
 public class RendererXogoBeta implements InputProcessor {
+    public static String name;
     private MyGame meuxogogame;
     SpriteBatch spritebatch;
     private Texture grafico,grafico1,grafico2,grafico3;
@@ -165,22 +165,29 @@ public class RendererXogoBeta implements InputProcessor {
             }
         }catch (IOException e) {
             e.printStackTrace(); }
+        String name;
         if( (lista.size<10)) {
-            String nombre="";
-            switch(meuxogogame.getPlataforma()){
-                case(MyGame.PLATAFORMA_DESKTOP):
-                        nombre = JOptionPane.showInputDialog(null,"Mejores 10 puntuaciones\nIntroduzca su Nombre:",
-                        "TIME OUT", JOptionPane.WARNING_MESSAGE);
-                        break;
-                case(MyGame.PLATAFORMA_ANDROID):
-                    nombre = JOptionPane.showInputDialog(null,"Mejores 10 puntuaciones\nIntroduzca su Nombre:",
-                            "TIME OUT", JOptionPane.WARNING_MESSAGE);
+            switch(meuxogogame.tipo) {
+                case 0:
+                    meuxogogame.platform.onPressGuardar();
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    name=RendererXogoBeta.name;
                     break;
-            }
+                case 1:
+                      name = JOptionPane.showInputDialog(null, "Mejores 10 puntuaciones\nIntroduzca su Nombre:",
+                        "TIME OUT", JOptionPane.WARNING_MESSAGE);
+                      break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + meuxogogame.tipo);
 
-            if(nombre=="")
-                nombre="unknown";
-            lista.add(new Puntuaciones(nombre,score));
+            }
+            if(name=="")
+                name="unknown";
+            lista.add(new Puntuaciones(name,score));
         }else
             comprobarPuntuaciones(score);
 
@@ -214,8 +221,20 @@ public class RendererXogoBeta implements InputProcessor {
                 index = i;
             }
         if(score>puntos)
-            lista.set(index,new Puntuaciones(JOptionPane.showInputDialog(null, "Mejores 10 puntuaciones\nIntroduzca su Nombre:",
-                                "TIME OUT", JOptionPane.WARNING_MESSAGE), score));
+            switch (meuxogogame.tipo) {
+                case 0:
+                    meuxogogame.platform.onPressGuardar();
+                    try {
+                        Thread.sleep(10000);}
+                    catch (InterruptedException e) {
+                        e.printStackTrace(); }
+                    lista.set(index, new Puntuaciones(RendererXogoBeta.name,score));
+                    break;
+                case 1:
+                    lista.set(index, new Puntuaciones(JOptionPane.showInputDialog(null, "Mejores 10 puntuaciones\nIntroduzca su Nombre:",
+                            "TIME OUT", JOptionPane.WARNING_MESSAGE), score));
+                    break;
+            }
     }
 
     public void resize(int width, int height) {
@@ -226,9 +245,7 @@ public class RendererXogoBeta implements InputProcessor {
     }
 
     public void dispose(){
-        Gdx.input.setInputProcessor(null);
-    }
-
+        Gdx.input.setInputProcessor(null); }
     @Override
     public boolean keyDown(int keycode) {
         switch(keycode){
@@ -249,22 +266,14 @@ public class RendererXogoBeta implements InputProcessor {
         }
         return false;
     }
-
-
     @Override
     public boolean keyUp(int keycode) {
         // TODO Auto-generated method stub
-        return false;
-    }
-
-
+        return false; }
     @Override
     public boolean keyTyped(char character) {
         // TODO Auto-generated method stub
-        return false;
-    }
-
-
+        return false; }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 dedo=new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
@@ -276,32 +285,20 @@ public class RendererXogoBeta implements InputProcessor {
            meuxogogame.setScreen(meuxogogame.getPausa()) ;
         return false;
     }
-
-
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         // TODO Auto-generated method stub
-        return false;
-    }
-
-
+        return false; }
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         // TODO Auto-generated method stub
-        return false;
-    }
-
-
+        return false; }
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         // TODO Auto-generated method stub
-        return false;
-    }
-
-
+        return false; }
     @Override
     public boolean scrolled(int amount) {
         // TODO Auto-generated method stub
-        return false;
-    }
+        return false; }
 }
